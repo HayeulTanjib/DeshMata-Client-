@@ -7,6 +7,8 @@ import Login from './Components/Authentication/Login';
 import Register from './Components/Authentication/Register';
 import Header from './Components/Shared/Header';
 import NotFound from './Components/Pages/NotFound/NotFound';
+import Purchase from './Components/Pages/Purchase/Purchase';
+import RequireAuth from './RequireAuth/RequireAuth';
 
 function App() {
   return (
@@ -15,7 +17,11 @@ function App() {
     <Header/>
      <Routes>
        <Route path='/' element={<Home/>}/>
-       <Route path='/purchase' element={<Home/>}/>
+       <Route path='/purchase' element={
+       <RequireAuth>
+        <Purchase/>
+       </RequireAuth>
+       }/>
        <Route path='/login' element={<Login/>}/>
        <Route path='/register' element={<Register/>}/>
        <Route path='*' element={<NotFound/>}/>

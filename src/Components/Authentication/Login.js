@@ -1,8 +1,40 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
+import { Link, useLocation, useNavigate} from 'react-router-dom';
 import bgImg from '../../Assets/bg.jpg'
+import auth from '../../Firebase/firebase-config';
+import Loading from '../Shared/Loading';
+import SocialLogin from '../Shared/SocialLogin';
 
 const Login = () => {
+
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useSignInWithEmailAndPassword(auth);
+      const location = useLocation()
+      const navigate = useNavigate()
+      let from = location.state?.from?.pathname || "/";
+
+      const { register, formState: { errors }, handleSubmit, reset } = useForm();
+      const onSubmit = (data) => {
+          const { email, password} = data;
+          signInWithEmailAndPassword(email, password)
+          reset()
+      }
+  
+      if(loading){
+           <Loading/>
+      }
+
+      if(user){
+        navigate(from, { replace: true });
+      }
+
+
     return (
         <div>
             <div className="bg-white dark:bg-gray-900">
@@ -26,48 +58,36 @@ const Login = () => {
 
                             {/* Form */}
                             <div className="mt-8">
-                                <form>
+                            <form onSubmit={handleSubmit(onSubmit)} >
                                     <div>
                                         <label for="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
-                                        <input type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                        <input {...register("email", { required: true })} type="email" name="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                        <small className="text-red-500">{errors.email?.type === 'required' && "Email is required"}</small>
                                     </div>
 
                                     <div className="mt-6">
                                         <div className="flex justify-between mb-2">
                                             <label for="password" className="text-sm text-gray-600 dark:text-gray-200">Password</label>
-                                            <a href="#" className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline">Forgot password?</a>
                                         </div>
-
-                                        <input type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                        <input {...register("password", { required: true, minLength: 6 })} type="password" name="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                        <small className="text-red-500">{errors.password?.type === 'required' && "Password is required"}</small>
+                                        <small className="text-red-500">{errors.password?.type === 'minLength' && "Password length must be 6 or longer"}</small>
                                     </div>
 
                                     <div className="mt-6">
                                         <button
                                             className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                                            Log In
+                                            Sign In
                                         </button>
                                     </div>
-
                                 </form>
+                                {error && <small className='text-center text-red-500'>{error.message}</small>}
 
                                 {/* Google Login */}
-
-                                <div className="mt-16 grid space-y-4">
-                                    <button className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 first-letter: hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
-                                        <div className="relative flex items-center space-x-4 justify-center">
-                                            <img src="https://tailus.io/sources/blocks/social/preview/images/google.svg" className="absolute left-0 w-5" alt="google logo" />
-                                            <span className="block w-max font-semibold tracking-wide text-white text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
-                                        </div>
-                                    </button>
-                                </div>
-
-
-
-
-
+                                <SocialLogin/>
 
                                 <p className="mt-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet?
-                                 <Link to={'/register'} href="#" className="text-blue-500 focus:outline-none focus:underline hover:underline"> Log In</Link></p>
+                                 <Link to={'/register'} href="#" className="text-blue-500 focus:outline-none focus:underline hover:underline"> Sign Up</Link></p>
                             </div>
                         </div>
                     </div>
