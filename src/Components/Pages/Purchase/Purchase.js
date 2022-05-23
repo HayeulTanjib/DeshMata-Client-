@@ -1,73 +1,99 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { useQuery } from 'react-query';
+//import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import auth from '../../../Firebase/firebase-config';
-import Loading from '../../Shared/Loading';
-
 
 const Purchase = () => {
 
-const {id} = useParams();
-const [user] = useAuthState(auth);
+    const { id } = useParams();
+    const [user] = useAuthState(auth);
+    const [tools, setTools] = useState([]);
 
-const {data: product, isLoading} = useQuery('product', () => fetch(`http://localhost:5000/purchase/${id}`).then(res => res.json()) )
-
-const{name, price} = product; 
-const{displayName } = user;
-
-
-const { register, formState: { errors }, handleSubmit, reset } = useForm();
-const onSubmit = (data) => {
-    console.log(data);
-    reset()
-}
+    useEffect(() => {
+        fetch(`http://localhost:5000/purchase/${id}`)
+            .then(res => res.json())
+            .then(data => setTools(data))
+    }, [id])
 
 
-if(isLoading){
-    return <Loading/>
-}
+    const { displayName } = user;
 
+
+
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        reset()
+    }
+
+    const { _id, name, img, description, minimumOrder, available, price } = tools
 
     return (
-        <div>
-            <div className="text-2xl text-center">Purchase: {id}</div>
-<div class="hero min-h-screen bg-base-200">
-    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-      <div class="card-body">
-          
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div class="form-control">
-            <label class="label">
-                <span class="label-text">Tools Name</span>
-            </label>
-            <input {...register("name")} name='name' type="text" value={name}  class="input input-bordered" />
-            </div>
+        <div className="">
+            <div class="flex flex-col w-full lg:flex-row min-h-screen">
+                <div class="grid flex-grow card rounded-box place-items-center">
+                    <div class="card card-compact w-96 bg-base-100 shadow-xl">
+                        <figure><img src={img} alt="Tools" /></figure>
+                        <div class="card-body">
+                            <h2 class="card-title">{name}</h2>
+                            <p>{description}</p>
+                            <p>Price: {price}$</p>
+                            <p>Available: {available} Pcs</p>
+                            <p>Minimum Order: {minimumOrder} Pcs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider lg:divider-horizontal"></div>
 
-            <div class="form-control">
-            <label class="label">
-                <span class="label-text">Price</span>
-            </label>
-            <input {...register("price")} name="price" type="text" value={`${price}$`} class="input input-bordered" />
-            </div>
+                {/* Form */}
+                <div class="grid flex-grow card rounded-box place-items-center">
+                    <div class="card-body">
 
-            <div class="form-control">
-            <label class="label">
-                <span class="label-text">Order Quantity</span>
-            </label>
-            <input type="text" value={displayName} class="input input-bordered" />
-            </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Name</span>
+                            </label>
+                            <input type="text" name='name' value={user?.displayName} class="input input-bordered" />
+                        </div>
 
-            <div class="form-control mt-6">
-            <button class="btn btn-primary">Purchase Now</button>
-            </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Email</span>
+                            </label>
+                            <input type="text" name='email' value={user?.email} class="input input-bordered" />
+                        </div>
 
-         </form>
-    </div>
-    </div>
-  </div>
-</div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Mobile No</span>
+                            </label>
+                            <input type="text" name='mobile' placeholder="Enter Mobile Number" class="input input-bordered" />
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Quantity</span>
+                            </label>
+                            <input type="number" name='quantity' class="input input-bordered" />
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Address</span>
+                            </label>
+                            <textarea name="address" className='input input-bordered' id="" cols="30" rows="10"></textarea>
+                        </div>
+
+                        <div class="form-control mt-6">
+                            <button class="btn btn-primary">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     );
 };
 

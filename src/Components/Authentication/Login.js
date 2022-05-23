@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate} from 'react-router-dom';
 import bgImg from '../../Assets/bg.jpg'
 import auth from '../../Firebase/firebase-config';
+import useToken from '../Hooks/useToken';
 import Loading from '../Shared/Loading';
 import SocialLogin from '../Shared/SocialLogin';
 
@@ -17,6 +18,8 @@ const Login = () => {
       ] = useSignInWithEmailAndPassword(auth);
       const location = useLocation()
       const navigate = useNavigate()
+      const [token] = useToken(user);
+
       let from = location.state?.from?.pathname || "/";
 
       const { register, formState: { errors }, handleSubmit, reset } = useForm();
@@ -25,13 +28,15 @@ const Login = () => {
           signInWithEmailAndPassword(email, password)
           reset()
       }
+
+      useEffect(() => {
+          if(token){
+            navigate(from, { replace: true });
+          }
+      },[from, navigate, token])
   
       if(loading){
            <Loading/>
-      }
-
-      if(user){
-        navigate(from, { replace: true });
       }
 
 

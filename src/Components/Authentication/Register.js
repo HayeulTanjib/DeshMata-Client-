@@ -6,6 +6,7 @@ import auth from '../../Firebase/firebase-config';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 import SocialLogin from '../Shared/SocialLogin';
+import useToken from '../Hooks/useToken';
 
 
 
@@ -14,6 +15,7 @@ const Register = () => {
     const [createUserWithEmailAndPassword, user, loading, error,] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
     const [updateProfile] = useUpdateProfile(auth);
     const navigate = useNavigate()
+    const [token] = useToken(user);
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
@@ -29,8 +31,8 @@ const Register = () => {
          <Loading/>
     }
 
-    if(user){
-        navigate('/');
+    if(token){
+     navigate('/');
     }
 
 
