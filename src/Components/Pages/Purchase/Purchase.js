@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 //import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../Firebase/firebase-config';
 
 const Purchase = () => {
@@ -10,6 +11,8 @@ const Purchase = () => {
     const { id } = useParams();
     const [user] = useAuthState(auth);
     const [tools, setTools] = useState([]);
+    const { _id, name, img, description, minimumOrder, available, price } = tools;
+    
 
     useEffect(() => {
         fetch(`http://localhost:5000/purchase/${id}`)
@@ -17,18 +20,35 @@ const Purchase = () => {
             .then(data => setTools(data))
     }, [id])
 
-
-    const { displayName } = user;
-
-
-
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
+
     const onSubmit = (data) => {
-        console.log(data);
+
+            fetch('http://localhost:5000/order', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body:JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.insertedId){
+                    toast.success('Successfully Placed Order')
+                }
+            })
         reset()
     }
 
-    const { _id, name, img, description, minimumOrder, available, price } = tools
+    const [num , setNum] = useState({ quantity: 0})
+    const handleChange = (e) => {
+        const {quantity, ...rest} = num;
+        const newQuantity = e.target.value;
+        const newNum = {newQuantity, ...rest};
+        setNum(newNum);
+    }
+
+
 
     return (
         <div className="">
@@ -49,47 +69,53 @@ const Purchase = () => {
 
                 {/* Form */}
                 <div class="grid flex-grow card rounded-box place-items-center">
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div class="card-body">
-
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Name</span>
                             </label>
-                            <input type="text" name='name' value={user?.displayName} class="input input-bordered" />
+                            <input {...register("name")} type="text" name='name' value={user?.displayName} class="input input-bordered" />
                         </div>
 
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Email</span>
                             </label>
-                            <input type="text" name='email' value={user?.email} class="input input-bordered" />
+                            <input {...register("email")} type="text" name='email' value={user?.email} class="input input-bordered" />
+                            
                         </div>
 
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Mobile No</span>
                             </label>
-                            <input type="text" name='mobile' placeholder="Enter Mobile Number" class="input input-bordered" />
+                            <input {...register("mobile", { required: true })} type="text" name='mobile' placeholder="Enter Mobile Number" class="input input-bordered" />
+                            {errors.mobile?.type === 'required' && "Mobile is required"}
                         </div>
 
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Quantity</span>
                             </label>
-                            <input type="number" name='quantity' class="input input-bordered" />
+                            <input {...register("quantity", { min: minimumOrder, max: available })} type="number" value={num.quantity}  onChange={handleChange}  name='quantity' class="input input-bordered" />
+                            {errors.quantity?.type === 'min' && <small className='text-red-500'>Minimum order quantity is {minimumOrder} pcs</small>}
+                            {errors.quantity?.type === 'max' && <small className='text-red-500'>Maximum order quantity is {available} pcs</small>}
                         </div>
 
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Address</span>
                             </label>
-                            <textarea name="address" className='input input-bordered' id="" cols="30" rows="10"></textarea>
+                            <textarea {...register("address", { required: true })} name="address" className='input input-bordered' id="" cols="30" rows="10"></textarea>
+                            {errors.address?.type === 'required' && "Address is required"}
                         </div>
 
                         <div class="form-control mt-6">
                             <button class="btn btn-primary">Place Order</button>
                         </div>
                     </div>
+                    </form>
                 </div>
 
             </div>
