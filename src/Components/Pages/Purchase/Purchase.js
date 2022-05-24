@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useForm } from 'react-hook-form';
-//import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../../Firebase/firebase-config';
+import axios from 'axios';
 
 const Purchase = () => {
 
@@ -20,32 +19,36 @@ const Purchase = () => {
             .then(data => setTools(data))
     }, [id])
 
-    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    
 
-    const onSubmit = (data) => {
 
-            fetch('http://localhost:5000/order', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body:JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.insertedId){
+    const handlePurchaseForm = async(e) => {
+        e.preventDefault();
+
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const productName = e.target.productName.value;
+        const price = e.target.price.value;
+        const quantity = e.target.quantity.value;
+        const numQuantity = parseInt(quantity)
+        const mobile = e.target.mobile.value;
+        const address = e.target.address.value;
+
+        const data = {name, email, productName, price, numQuantity, mobile, address}
+
+
+        if(quantity >= minimumOrder && quantity <= available){
+         await axios.post('http://localhost:5000/order', data)
+            .then(res => {
+                if(res.data.insertedId){
                     toast.success('Successfully Placed Order')
                 }
             })
-        reset()
-    }
-
-    const [num , setNum] = useState({ quantity: 0})
-    const handleChange = (e) => {
-        const {quantity, ...rest} = num;
-        const newQuantity = e.target.value;
-        const newNum = {newQuantity, ...rest};
-        setNum(newNum);
+        }
+        else{
+            toast.error(`Minimum order quantity is ${minimumOrder} and Maximum is ${available}`)
+        }
+            e.target.reset();
     }
 
 
@@ -69,46 +72,59 @@ const Purchase = () => {
 
                 {/* Form */}
                 <div class="grid flex-grow card rounded-box place-items-center">
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handlePurchaseForm}>
                     <div class="card-body">
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Name</span>
                             </label>
-                            <input {...register("name")} type="text" name='name' value={user?.displayName} class="input input-bordered" />
+                            <input  type="text" name='name' value={user?.displayName} class="input input-bordered" />
                         </div>
 
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Email</span>
                             </label>
-                            <input {...register("email")} type="text" name='email' value={user?.email} class="input input-bordered" />
+                            <input type="text" name='email' value={user?.email} class="input input-bordered" />
                             
                         </div>
 
                         <div class="form-control">
                             <label class="label">
-                                <span class="label-text">Mobile No</span>
+                                <span class="label-text">Product Name</span>
                             </label>
-                            <input {...register("mobile", { required: true })} type="text" name='mobile' placeholder="Enter Mobile Number" class="input input-bordered" />
-                            {errors.mobile?.type === 'required' && "Mobile is required"}
+                            <input  type="text" name='productName' value={name} class="input input-bordered" />
+                            
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Price</span>
+                            </label>
+                            <input   type="text" name='price' value={price} class="input input-bordered" />
                         </div>
 
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Quantity</span>
                             </label>
-                            <input {...register("quantity", { min: minimumOrder, max: available })} type="number" value={num.quantity}  onChange={handleChange}  name='quantity' class="input input-bordered" />
-                            {errors.quantity?.type === 'min' && <small className='text-red-500'>Minimum order quantity is {minimumOrder} pcs</small>}
-                            {errors.quantity?.type === 'max' && <small className='text-red-500'>Maximum order quantity is {available} pcs</small>}
+                            <input  type="number" defaultValue={minimumOrder}   name='quantity' class="input input-bordered" />
+
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Mobile No</span>
+                            </label>
+                            <input type="text" name='mobile' placeholder="Enter Mobile Number" class="input input-bordered" />
+                    
                         </div>
 
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Address</span>
                             </label>
-                            <textarea {...register("address", { required: true })} name="address" className='input input-bordered' id="" cols="30" rows="10"></textarea>
-                            {errors.address?.type === 'required' && "Address is required"}
+                            <textarea name="address" className='input input-bordered' id="" cols="30" rows="10"></textarea>
+                            
                         </div>
 
                         <div class="form-control mt-6">
