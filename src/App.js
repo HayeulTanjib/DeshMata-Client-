@@ -14,6 +14,11 @@ import Dashboard from './Components/Pages/Dashboard/Dashboard';
 import Myprofile from './Components/Pages/Dashboard/Myprofile';
 import Myorders from './Components/Pages/Dashboard/Myorders';
 import AddReview from './Components/Pages/Dashboard/AddReview';
+import ManageAllOrders from './Components/Pages/AdminDashboard/ManageAllOrders';
+import AddProduct from './Components/Pages/AdminDashboard/AddProduct';
+import MakeAdmin from './Components/Pages/AdminDashboard/MakeAdmin';
+import ManageProducts from './Components/Pages/AdminDashboard/ManageProducts';
+import RequireAdmin from './RequireAuth/RequireAdmin';
 
 function App() {
   return (
@@ -38,7 +43,11 @@ function App() {
          <Route path='myprofile' element={<Myprofile/>} />
          <Route path='myorders' element={<Myorders/>} />
          <Route path='addreview' element={<AddReview/>} />
-        
+
+         <Route path='manageallorders' element={<RequireAdmin><ManageAllOrders/></RequireAdmin>} />
+         <Route path='addproduct' element={<RequireAdmin><AddProduct/></RequireAdmin>} />
+         <Route path='makeadmin' element={<RequireAdmin><MakeAdmin/></RequireAdmin>} />
+         <Route path='manageproducts' element={<RequireAdmin><ManageProducts/></RequireAdmin>} />
       </Route>
 
        <Route path='/blogs' element={<Blogs/>}/>

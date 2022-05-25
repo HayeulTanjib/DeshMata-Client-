@@ -1,6 +1,8 @@
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../../Firebase/firebase-config';
 import Loading from '../../Shared/Loading';
 import DeleteOrderModal from './DeleteOrderModal';
@@ -8,7 +10,21 @@ import DeleteOrderModal from './DeleteOrderModal';
 const Myorders = () => {
 
     const [user] = useAuthState(auth);
-    const {data: orders, isLoading, refetch} = useQuery('orders', ()=> fetch(`http://localhost:5000/order/${user?.email}`).then(res => res.json()))
+    const navigate = useNavigate();
+
+    const {data: orders, isLoading, refetch} = useQuery('orders', ()=> fetch(`http://localhost:5000/order/${user?.email}`, {
+      method: 'GET',
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    }).then(res => {
+      if(res.status === 401 || res.status === 403){
+        signOut(auth);
+        localStorage.removeItem('accessToken');
+        navigate('/');
+      }
+      return res.json()
+    }))
     const [deleteOrder, setDeleteOrders] = useState(null);
 
 
@@ -17,8 +33,7 @@ const Myorders = () => {
     }
 
     return (
-        <div>
-            <h1>My Orders</h1>
+        <div className='mt-12'>
 
             {/* Table */}
             <div class="overflow-x-auto">
@@ -44,7 +59,7 @@ const Myorders = () => {
                 <td>{productName}</td>
                 <td>{price}$</td>
                 <td>{quantity} pcs</td>
-                <label onClick={() => setDeleteOrders(order)} for="delete-confirm-modal" class="btn btn-xs btn-error">Delete</label>
+                <td><label onClick={() => setDeleteOrders(order)} for="delete-confirm-modal" class="btn btn-sm btn-error">Delete</label></td>
               </tr>
             )
           })
