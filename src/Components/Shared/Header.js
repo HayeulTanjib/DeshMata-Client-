@@ -14,7 +14,7 @@ const Header = () => {
 
     const headerItems = <>
         <li><Link to={'/'}>Home</Link></li>
-        <li><Link to={'/purchase'}>Purchase</Link></li>
+        <li><Link to={'/allproducts'}>All Products</Link></li>
         <li><Link to={'/blogs'}>Blogs</Link></li>
         {
             user ? <>

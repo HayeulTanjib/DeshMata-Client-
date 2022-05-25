@@ -23,7 +23,7 @@ const AddProduct = () => {
             if(result.success){
                 const img = result.data.url;
                 const product = {
-                    name: data.name,
+                    name: data.productname,
                     img:img,
                     description: data.description,
                     minimumOrder: data.minimumorder,
