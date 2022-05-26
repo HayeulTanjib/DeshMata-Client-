@@ -5,15 +5,15 @@ import MakeAdminRow from './MakeAdminRow';
 
 const MakeAdmin = () => {
 
-    const { data: allusers, isLoading, refetch } = useQuery('allusers', () => fetch('http://localhost:5000/allusers', {
+    const { data: allusers, isLoading, refetch } = useQuery('allusers', () => fetch('https://dry-escarpment-82110.herokuapp.com/allusers', {
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()))
 
 
-    if(isLoading){
-        return <Loading/>
+    if (isLoading) {
+        return <Loading />
     }
 
     return (

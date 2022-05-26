@@ -1,16 +1,16 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const DeleteOrderModal = ({deleteOrder, setDeleteOrders, refetch}) => {
+const DeleteOrderModal = ({ deleteOrder, setDeleteOrders, refetch }) => {
 
-    
-    const {email, productName} = deleteOrder;
+
+    const { email, productName } = deleteOrder;
 
     const handleDelete = (email) => {
 
-        fetch(`http://localhost:5000/myorder/${email}`, {
+        fetch(`https://dry-escarpment-82110.herokuapp.com/myorder/${email}`, {
             method: "DELETE",
-          
+
         })
             .then(res => res.json())
             .then(data => {
@@ -21,7 +21,7 @@ const DeleteOrderModal = ({deleteOrder, setDeleteOrders, refetch}) => {
                     refetch();
                 }
             })
-    } 
+    }
 
     return (
         <div>
@@ -31,7 +31,7 @@ const DeleteOrderModal = ({deleteOrder, setDeleteOrders, refetch}) => {
                     <h3 class="font-bold text-lg text-red-500 text-center">Are Yor Sure to Delete {productName}</h3>
                     <div class="modal-action flex justify-between">
                         <label for="delete-confirm-modal" class="btn btn-xs">Close</label>
-                        <button onClick={() => handleDelete(email)}  className='btn btn-xs btn-error'>Delete</button>
+                        <button onClick={() => handleDelete(email)} className='btn btn-xs btn-error'>Delete</button>
                     </div>
                 </div>
             </div>

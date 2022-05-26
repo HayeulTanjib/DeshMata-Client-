@@ -4,13 +4,13 @@ import Loading from '../../Shared/Loading';
 import DeleteUserOrderModal from './DeleteUserOrderModal';
 
 const ManageAllOrders = () => {
-    
-    const { data: allorders, isLoading, refetch } = useQuery('allorders', () => fetch('http://localhost:5000/allorders').then(res => res.json()))
-    
+
+    const { data: allorders, isLoading, refetch } = useQuery('allorders', () => fetch('https://dry-escarpment-82110.herokuapp.com/allorders').then(res => res.json()))
+
     const [deleteOrder, setDeleteOrder] = useState(null)
-    
+
     if (isLoading) {
-       return <Loading />
+        return <Loading />
     }
 
     console.log(allorders);
@@ -43,7 +43,7 @@ const ManageAllOrders = () => {
                                         <td>{price}$</td>
                                         <td>{quantity}</td>
                                         <td>{email}</td>
-                                        <td><label onClick={() => setDeleteOrder(order)}  for="delete-confirm-modal" class="btn btn-sm btn-error">Delete</label></td>
+                                        <td><label onClick={() => setDeleteOrder(order)} for="delete-confirm-modal" class="btn btn-sm btn-error">Delete</label></td>
                                     </tr>
                                 )
                             })
