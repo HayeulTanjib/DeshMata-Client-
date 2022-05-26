@@ -7,7 +7,7 @@ const AllProductsRow = ({tool}) => {
 
 console.log(_id);
     return (
-        <div >
+        <div>
             <figure class="px-10 pt-10">
                 <img src={img} alt="Shoes" class="rounded-xl" />
             </figure>

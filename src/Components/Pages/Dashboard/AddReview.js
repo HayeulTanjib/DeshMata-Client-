@@ -1,13 +1,19 @@
 import axios from 'axios';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import auth from '../../../Firebase/firebase-config';
 
 const AddReview = () => {
 
+    const [user] = useAuthState(auth);
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
+
+        console.log(data);
+
         await axios.post('http://localhost:5000/addreview', data)
             .then(res => {
                 if ((res.data.insertedId)) {
@@ -27,6 +33,13 @@ const AddReview = () => {
                     <div class="card-body">
 
                         <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text">User Name</span>
+                                </label>
+                                <input {...register('name', { required: true })} name="name" value={user?.displayName} type="text"  class="input input-bordered" />
+                            </div>
 
                             <div class="form-control">
                                 <label class="label">

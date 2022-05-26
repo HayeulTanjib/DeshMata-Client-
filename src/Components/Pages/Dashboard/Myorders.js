@@ -52,13 +52,13 @@ const Myorders = () => {
       
       {
           orders.map((order, index) => {
-            const {productName, price, quantity} = order;
+            const {productName, price, numQuantity} = order;
             return(
                 <tr>
                 <th>{index + 1}</th>
                 <td>{productName}</td>
                 <td>{price}$</td>
-                <td>{quantity} pcs</td>
+                <td>{numQuantity} pcs</td>
                 <td><label onClick={() => setDeleteOrders(order)} for="delete-confirm-modal" class="btn btn-sm btn-error">Delete</label></td>
               </tr>
             )

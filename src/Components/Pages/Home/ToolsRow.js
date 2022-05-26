@@ -13,7 +13,7 @@ const ToolsRow = ({tool}) => {
             </figure>
             <div class="card-body items-center text-center">
                 <h2 class="card-title">{name}</h2>
-                <p>{description}</p>
+                <p>{description.slice(0, 100)}...</p>
                 <p>Price: {price}$</p>
                 <p>Available: {available} Pcs</p>
                 <p>Minimum Order: {minimumOrder} Pcs</p>

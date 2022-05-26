@@ -23,8 +23,13 @@ const Dashboard = () => {
                     <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
                         
                         <li><Link to={'/dashboard/myprofile'}>My Profile</Link></li>
+                    {
+                        !admin && <>
                         <li><Link to={'/dashboard/myorders'}>My Orders</Link></li>
                         <li><Link to={'/dashboard/addreview'}>Add Review</Link></li>
+                        </>
+                    }
+
                         {
                         admin && <>
                         <li><Link to={'/dashboard/manageallorders'}>Manage All Orders</Link></li>

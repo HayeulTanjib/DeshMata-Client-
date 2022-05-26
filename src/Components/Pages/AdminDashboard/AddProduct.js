@@ -26,9 +26,9 @@ const AddProduct = () => {
                     name: data.productname,
                     img:img,
                     description: data.description,
-                    minimumOrder: data.minimumorder,
-                    available:data.available,
-                    price: data.price
+                    minimumOrder: parseInt(data.minimumorder),
+                    available:parseInt(data.available),
+                    price: parseInt(data.price)
                 }
 
                 fetch('http://localhost:5000/addproduct',{
