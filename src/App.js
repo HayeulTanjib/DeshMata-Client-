@@ -21,6 +21,7 @@ import ManageProducts from './Components/Pages/AdminDashboard/ManageProducts';
 import RequireAdmin from './RequireAuth/RequireAdmin';
 import AllProducts from './Components/Pages/DisplayAllProducts/AllProducts';
 import MyPortfolio from './Components/Pages/MyPortfolio/MyPortfolio';
+import Footer from './Components/Shared/Footer';
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
        <Route path='/register' element={<Register/>}/>
        <Route path='*' element={<NotFound/>}/>
      </Routes>
+     <Footer/>
 
     </div>
   );

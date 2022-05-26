@@ -52,7 +52,7 @@ const AddProduct = () => {
 
 
     return (
-        <div>
+        <div className='mt-8'>
 
             {/* Form */}
             <div class="grid card rounded-box place-items-center">        

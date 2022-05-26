@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import bgImg from '../../../Assets/bg.jpg'
 
 const Banner = () => {
@@ -9,8 +10,8 @@ const Banner = () => {
                 <div class="hero-content text-center text-neutral-content">
                     <div class="max-w-md">
                         <h1 class="mb-5 text-5xl font-bold text-white">Hello there</h1>
-                        <p class="mb-5 text-white">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                        <button class="btn btn-primary">Get Started</button>
+                        <p class="mb-5 text-white">We are DeshMata Agronomic Tool and Manufacturing Inc. The leading Agronomic Tool and Manufacturing Company based in Dhaka, Bangladesh </p>
+                        <Link to={'/allproducts'} class="btn btn-primary">Get Started</Link>
                     </div>
                 </div>
             </div>

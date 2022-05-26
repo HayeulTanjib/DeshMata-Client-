@@ -16,8 +16,7 @@ const ManageAllOrders = () => {
     console.log(allorders);
 
     return (
-        <div>
-            <h3>Manage All Products</h3>
+        <div className='mt-8'>
             {/* Table */}
             <div class="overflow-x-auto">
                 <table class="table w-full">

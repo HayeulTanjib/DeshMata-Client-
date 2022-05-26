@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from '../../Shared/Footer';
+
 import Banner from './Banner';
 import BusinessStat from './BusinessStat';
 import HomeSlider from './HomeSlider';
@@ -16,7 +16,6 @@ const Home = () => {
             <Reviews/>
             <HomeSlider/>
             <Map/>
-            <Footer/>
         </div>
     );
 };

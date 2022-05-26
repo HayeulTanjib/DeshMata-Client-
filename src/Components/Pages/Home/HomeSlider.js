@@ -17,8 +17,8 @@ const HomeSlider = () => {
   };
 
   return (
-    <div className='mb-5'>
-      <h2 className='py-4 text-3xl text-center text-4xl font-semibold'>We Featured On</h2>
+    <div className='mb-5 mx-auto px-12'>
+      <h2 className='py-4 text-center text-3xl font-semibold'>We Featured On</h2>
       
       <div>
         <div className='py-12'>

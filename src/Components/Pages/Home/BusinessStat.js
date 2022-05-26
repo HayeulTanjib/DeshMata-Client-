@@ -4,7 +4,7 @@ const BusinessStat = () => {
 
     return (
         <div>
-            <h1 className='text-3xl font-semibold pt-12 text-center'>More Than 10 Years We Provide <br /> Service in Real State Industry</h1>
+            <h1 className='text-3xl font-semibold pt-12 text-center'>More Than 10 Years We Provide <br /> Service in Real Agricultural Industry</h1>
             <div className="mx-auto container lg:mt-48 lg:mb-24">
                 <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     <div className="flex justify-center w-full lg:border-r border-gray-300 py-6">
@@ -13,7 +13,7 @@ const BusinessStat = () => {
                             <path d="M2 67V61C2 57.8174 4.10714 54.7652 7.85786 52.5147C11.6086 50.2643 16.6957 49 22 49H42C47.3043 49 52.3914 50.2643 56.1421 52.5147C59.8929 54.7652 62 57.8174 62 61V67" stroke="#805AD5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                         <div className="text-gray-800 pl-12 w-1/2">
-                            <h1 className="font-bold text-2xl lg:text-5xl tracking-1px">450</h1>
+                            <h1 className="font-bold text-2xl lg:text-5xl tracking-1px">150+</h1>
                             <h2 className="text-base lg:text-lg mt-4 leading-8 tracking-wide">Happy Clients.</h2>
                         </div>
                     </div>
@@ -25,8 +25,8 @@ const BusinessStat = () => {
                             <path d="M17.1427 54.9998C21.3243 54.9998 24.7142 51.6099 24.7142 47.4283C24.7142 43.2468 21.3243 39.8569 17.1427 39.8569C12.9612 39.8569 9.57133 43.2468 9.57133 47.4283C9.57133 51.6099 12.9612 54.9998 17.1427 54.9998Z" stroke="#805AD5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                         <div className="text-gray-800 w-1/2 pl-12">
-                            <h1 className="font-bold text-2xl lg:text-5xl tracking-1px">10+</h1>
-                            <h2 className="text-base lg:text-lg mt-4 leading-8 tracking-wide">Insurance Solutions</h2>
+                            <h1 className="font-bold text-2xl lg:text-5xl tracking-1px">50+</h1>
+                            <h2 className="text-base lg:text-lg mt-4 leading-8 tracking-wide">Farming Solutions</h2>
                         </div>
                     </div>
                     <div className="flex justify-center w-full lg:border-r border-gray-300 py-6">
@@ -55,8 +55,8 @@ const BusinessStat = () => {
                             <path d="M10.5 25.45L2 20.8438" stroke="#805AD5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                         <div className="text-gray-800 w-1/2 pl-12">
-                            <h1 className="font-bold text-2xl lg:text-5xl tracking-1px">530</h1>
-                            <h2 className="text-base lg:text-lg mt-4 leading-8 tracking-wide">Projects Completed</h2>
+                            <h1 className="font-bold text-2xl lg:text-5xl tracking-1px">90k+</h1>
+                            <h2 className="text-base lg:text-lg mt-4 leading-8 tracking-wide">Product Supplied</h2>
                         </div>
                     </div>
                 </div>

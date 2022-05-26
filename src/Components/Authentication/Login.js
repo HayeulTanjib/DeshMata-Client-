@@ -48,9 +48,9 @@ const Login = () => {
 
                         <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
                             <div>
-                                <h2 className="text-4xl font-bold text-white">Brand</h2>
+                                <h2 className="text-4xl font-bold text-white">DeshMata</h2>
 
-                                <p className="max-w-xl mt-3 text-gray-300">Lorem ipsum dolor sit, amet consectetur adipisicing elit. In autem ipsa, nulla laboriosam dolores, repellendus perferendis libero suscipit nam temporibus molestiae</p>
+                                <p className="max-w-xl mt-3 text-gray-300">We are DeshMata Agronomic Tool and Manufacturing Inc. The leading Agronomic Tool and Manufacturing Company based in Dhaka, Bangladesh</p>
                             </div>
                         </div>
                     </div>

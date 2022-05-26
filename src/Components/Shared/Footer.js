@@ -17,7 +17,7 @@ const Footer = () => {
                                         />
                                     </g>
                                 </svg>
-                                <p className="ml-3 font-bold text-xl">The North</p>
+                                <p className="ml-3 font-bold text-xl">DeshMata</p>
                             </div>
                         </div>
                         <div className="w-11/12 xl:w-1/6 lg:w-2/5 mx-auto lg:mx-0 xl:mx-0 pt-3 xl:flex xl:justify-end pl-3 sm:pl-0">
@@ -50,7 +50,7 @@ const Footer = () => {
                                     <a href="javascript:void(0)">Quote from the best</a>
                                 </li>
                                 <li className="text-base text-gray-600 hover:text-gray-700 mb-5">
-                                    <a href="javascript:void(0)">How to start a blog</a>
+                                    <a href="javascript:void(0)">How to start a Framing</a>
                                 </li>
                                 <li className="text-base text-gray-600 hover:text-gray-700 mb-5">
                                     <a href="javascript:void(0)">Quote from the best</a>
@@ -72,18 +72,13 @@ const Footer = () => {
                                 <li className="text-base text-gray-600 hover:text-gray-700 mb-5">
                                     <a href="javascript:void(0)">Marketplace</a>
                                 </li>
-                                <li className="text-base text-gray-600 hover:text-gray-700 mb-5">
-                                    <a href="javascript:void(0)">Design &amp; Dev</a>
-                                </li>
-                                <li className="text-base text-gray-600 hover:text-gray-700 mb-5">
-                                    <a href="javascript:void(0)">Marketplace</a>
-                                </li>
+        
                             </ul>
                         </div>
                     </div>
                     <div className="xl:flex flex-wrap justify-between xl:mt-24 mt-16 pb-6 pl-3 sm:pl-0">
                         <div className="w-11/12 xl:w-2/6 mx-auto lg:mx-0 xl:mx-0 mb-6 xl:mb-0">
-                            <p className="text-gray-800 text-base">2020 The North. All Rights Reserved</p>
+                            <p className="text-gray-800 text-base">2020 DeshMata Agronomic Tool and Manufacturing Inc. &copy; All Rights Reserved</p>
                         </div>
                         <div className="w-11/12 xl:w-2/6 mx-auto lg:mx-0 xl:mx-0 mb-6 lg:mb-0 xl:mb-0">
                             <ul className="xl:flex lg:flex md:flex sm:flex justify-between">
