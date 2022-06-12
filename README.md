@@ -8,15 +8,14 @@ This project made with React JS and Node JS [LIVE LINK - Click Here](https://des
 
 * DeshMata is a Tool & Manufacturing  Management Website
 * Web Pages are Home, All Products, Blog, My profile, My portfolio, Registration & Login.
-* In Home - users can see Navbar, wesite banner, Some tools to buy, Business summary, Customer review, scrollable featured on, location mapn and footer.
+* In Home - users can see Navbar, wesite banner, Some tools to buy, Business summary, Customer review, scrollable featured on, location map and footer.
 * Users can Registration & Login using Email, Password or Social login(Google).
 * User can't purchase product without login.
-* After Login User and Admin have to different Dashboard.
-* Admin Dashboard features: Add Product, My profile, Manage Order, Manage Product, Make anoter admin
+* After Login User and Admin have different Dashboard.
+* Admin Dashboard features: Add Product, My profile, Manage Order, Manage Product, Make another admin
 * User Dashboard features: My orders, My profile, Add Review
-* Information is secured by JWT token.
-* User can Logout.
-* Full Responsive UI.
+* API is secured by JWT token.
+* Fully Responsive UI.
 
 
 ## Technology Used
