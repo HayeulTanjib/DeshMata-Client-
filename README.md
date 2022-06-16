@@ -4,6 +4,10 @@ This project made with React JS and Node JS [LIVE LINK - Click Here](https://des
 
 ## [LIVE LINK - Click Here](https://deshmata-e6bec.web.app/)
 
+### Admin Credentials:
+    email: admin@admin.com
+    password: 123456
+
 ## Project Description
 
 * DeshMata is a Tool & Manufacturing  Management Website
